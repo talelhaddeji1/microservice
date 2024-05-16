@@ -1,0 +1,59 @@
+syntax = "proto3"; // Utiliser la syntaxe Proto3
+package fournisseur;
+
+// Définition des messages pour les fournisseurs
+message Fournisseur {
+  string id = 1; // Identifiant du fournisseur
+  string nom = 2; // Nom du fournisseur
+  string description = 3; // Description du fournisseur
+}
+
+message GetFournisseurRequest {
+  string fournisseur_id = 1; // Identifiant du fournisseur
+}
+
+message GetFournisseurResponse {
+  Fournisseur fournisseur = 1; // Fournisseur trouvé
+}
+
+message SearchFournisseursRequest {} // Demande de recherche de tous les fournisseurs
+
+message SearchFournisseursResponse {
+  repeated Fournisseur fournisseurs = 1; // Liste des fournisseurs
+}
+
+message CreateFournisseurRequest {
+  string nom = 1; // Nom du fournisseur
+  string description = 2; // Description du fournisseur
+}
+
+message CreateFournisseurResponse {
+  Fournisseur fournisseur = 1; // Fournisseur créé
+}
+
+message DeleteFournisseurRequest {
+  string fournisseur_id = 1; // Identifiant du fournisseur à supprimer
+}
+
+message DeleteFournisseurResponse {
+  string message = 1; // Message de confirmation de suppression
+}
+
+message UpdateFournisseurRequest { // Demande de mise à jour du fournisseur
+  string fournisseur_id = 1; // ID du fournisseur
+  string nom = 2; // Nouveau nom
+  string description = 3; // Nouvelle description
+}
+
+message UpdateFournisseurResponse { // Réponse à la mise à jour
+  Fournisseur fournisseur = 1; // Fournisseur mis à jour
+}
+
+// Service Fournisseur avec toutes les opérations CRUD
+service FournisseurService {
+  rpc GetFournisseur(GetFournisseurRequest) returns (GetFournisseurResponse); // Obtenir un fournisseur par ID
+  rpc SearchFournisseurs(SearchFournisseursRequest) returns (SearchFournisseursResponse); // Obtenir tous les fournisseurs
+  rpc CreateFournisseur(CreateFournisseurRequest) returns (CreateFournisseurResponse); // Créer un fournisseur
+  rpc DeleteFournisseur(DeleteFournisseurRequest) returns (DeleteFournisseurResponse); // Supprimer un fournisseur par ID
+  rpc UpdateFournisseur(UpdateFournisseurRequest) returns (UpdateFournisseurResponse); // Mettre à jour un fournisseur par ID
+}
